@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <algorithm>
 
 template <typename T, size_t Size = 5>
 class SizedArray{
@@ -15,6 +16,7 @@ private:
 
 template<typename T, size_t Size>
 SizedArray<T, Size>::SizedArray(T * inArr){
+
   for (int i = 0; i < Size; i++){
     this->arr[i] = inArr[i];
   }
@@ -35,7 +37,10 @@ int main(){
   int inputArr[5] = {5, 4, 3, 2, 1};
   SizedArray<int, 5> sizedArr(inputArr);
 
+  SizedArray<int> defaultSizedArr(inputArr);
+
   sizedArr.Print();
+  defaultSizedArr.Print();
 
   return 0;
 }
