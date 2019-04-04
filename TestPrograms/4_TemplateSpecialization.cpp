@@ -1,6 +1,27 @@
 #include <iostream>
 #include <string>
 
+struct Foo{
+
+  int val;
+
+  Foo(){
+    this->val = 0;
+  }
+
+  Foo(int inVal){
+    this->val = inVal;
+    // std::cout << "Original value : " << this->val << std::endl;
+  }
+
+  void operator++(){
+    this->val += 2;
+    // std::cout << "New value : " << this->val << std::endl;
+  }
+
+};
+
+
 template <typename T>
 class Incrementer{
 
@@ -19,6 +40,7 @@ private:
   T value;
 
 };
+
 
 template <>
 class Incrementer <bool>{
@@ -42,6 +64,25 @@ private:
 };
 
 
+template <>
+class Incrementer <Foo>{
+
+public:
+  Incrementer(){
+    std::cout << "Original value : " << this->myF.val << std::endl;
+  }
+
+  void operator++(){
+    ++this->myF;
+    std::cout << "New value : " << this->myF.val << std::endl;
+  }
+
+private:
+  Foo myF;
+
+};
+
+
 int main(){
 
   Incrementer<int> testInc(5);
@@ -56,6 +97,14 @@ int main(){
   std::cout << "Specialization type: " << std::endl;
   for (int i = 0; i < 5; i++){
     ++boolInc;
+  }
+
+  std::cout << std::endl;
+
+  Incrementer<Foo> fooInc;
+  std::cout << "Specialization type: " << std::endl;
+  for (int i = 0; i < 5; i++){
+    ++fooInc;
   }
 
   return 0;
